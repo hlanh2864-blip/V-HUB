@@ -1,0 +1,15 @@
+{
+  "name": "v-hub-social",
+  "version": "1.0.0",
+  "private": true,
+  "description": "V-HUB Social - a dark themed social community app using native Node.js and SQLite",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "dependencies": {}
+}

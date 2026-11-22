@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090b14">
+  <meta name="description" content="V-HUB Social - kết nối, chia sẻ và khám phá cộng đồng.">
+  <title>V-HUB Social — Kết nối theo cách của bạn</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+
+  <div class="app-shell" id="appShell">
+    <aside class="sidebar left-sidebar">
+      <a class="brand" href="#home" aria-label="V-HUB trang chủ">
+        <span class="brand-mark">V</span>
+        <span>V-HUB<span class="brand-light"> SOCIAL</span></span>
+      </a>
+
+      <div class="sidebar-label">KHÔNG GIAN CỦA BẠN</div>
+      <nav class="side-nav" aria-label="Điều hướng chính">
+        <button class="nav-item active" data-view="feed" data-filter="all"><span class="nav-icon">⌂</span><span>Bảng tin</span></button>
+        <button class="nav-item" data-view="feed" data-filter="following"><span class="nav-icon">♧</span><span>Đang theo dõi</span></button>
+        <button class="nav-item" id="navNotifications"><span class="nav-icon">♧</span><span>Thông báo</span><span class="nav-count hidden" id="notificationBadge">0</span></button>
+        <button class="nav-item" id="navProfile"><span class="nav-icon">◎</span><span>Trang cá nhân</span></button>
+      </nav>
+
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-label">KHÁM PHÁ</div>
+      <div class="mini-card">
+        <div class="mini-card-icon">✦</div>
+        <div><strong>Góc cộng đồng</strong><p>Chia sẻ điều bạn yêu thích.</p></div>
+      </div>
+
+      <div class="sidebar-spacer"></div>
+      <div class="sidebar-user" id="sidebarUser">
+        <div class="avatar avatar-small" id="sidebarAvatar">V</div>
+        <div class="sidebar-user-info"><strong id="sidebarName">Khách ghé thăm</strong><span id="sidebarHandle">Chưa đăng nhập</span></div>
+        <button class="icon-button tiny" id="sidebarAccountAction" title="Đăng nhập">↗</button>
+      </div>
+      <div class="sidebar-foot">V-HUB SOCIAL <span>•</span> 2026</div>
+    </aside>
+
+    <main class="main-column">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mark">V</span><strong>V-HUB</strong></div>
+        <div class="page-heading"><span class="eyebrow" id="pageEyebrow">KHÔNG GIAN CỘNG ĐỒNG</span><h1 id="pageTitle">Bảng tin</h1></div>
+        <div class="topbar-actions">
+          <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Tìm người dùng..." autocomplete="off"><kbd>/</kbd></label>
+          <button class="icon-button notification-top" id="topNotifications" aria-label="Thông báo">♧<i class="notification-dot hidden" id="topNotificationDot"></i></button>
+          <button class="avatar avatar-top" id="topAvatar" aria-label="Tài khoản">G</button>
+        </div>
+      </header>
+
+      <section class="view active" id="feedView">
+        <section class="welcome-banner" id="welcomeBanner">
+          <div class="welcome-copy"><span class="banner-kicker">YOUR SPACE. YOUR PEOPLE.</span><h2>Mỗi kết nối đều<br><span>bắt đầu từ một lời chào.</span></h2><p>Chia sẻ câu chuyện, khám phá ý tưởng và tìm thấy cộng đồng của bạn.</p><button class="button button-glass" id="welcomeLogin">Tham gia V-HUB <span>→</span></button></div>
+          <div class="banner-art" aria-hidden="true"><div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="orbit-core">V</div><span class="floating-symbol symbol-a">✦</span><span class="floating-symbol symbol-b">♡</span><span class="floating-symbol symbol-c">✧</span></div>
+        </section>
+
+        <section class="composer panel" id="composerPanel">
+          <div class="composer-head"><div class="avatar" id="composerAvatar">V</div><button class="composer-prompt" id="composerFocus">Bạn đang nghĩ gì?</button></div>
+          <textarea id="postBody" maxlength="1000" placeholder="Chia sẻ một điều thú vị với cộng đồng..." rows="3"></textarea>
+          <div class="image-url-row hidden" id="imageUrlRow"><span>↗</span><input id="postImageUrl" type="url" placeholder="Dán đường dẫn ảnh https://..." maxlength="1000"><button class="icon-button tiny" id="removeImageUrl" aria-label="Đóng">×</button></div>
+          <div class="composer-footer"><div class="composer-tools"><button class="tool-button" id="addImageButton"><span>▧</span> Thêm ảnh bằng URL</button><span class="char-count" id="postCharCount">0/1000</span></div><button class="button button-primary" id="publishPost">Đăng bài <span>↗</span></button></div>
+        </section>
+
+        <div class="feed-toolbar"><div class="feed-tabs"><button class="feed-tab active" data-filter="all">Dành cho bạn</button><button class="feed-tab" data-filter="following">Đang theo dõi</button></div><span class="feed-caption" id="feedCaption">Những câu chuyện mới nhất</span></div>
+        <div class="feed-list" id="feedList"><div class="loading-state"><span class="loader"></span> Đang tải bảng tin...</div></div>
+      </section>
+
+      <section class="view" id="profileView">
+        <div id="profileContent"></div>
+      </section>
+
+      <section class="view" id="notificationsView">
+        <div class="panel notification-panel"><div class="section-title-row"><div><span class="eyebrow">CẬP NHẬT MỚI</span><h2>Thông báo</h2></div><button class="text-button" id="markAllRead">Đánh dấu đã đọc</button></div><div id="notificationList" class="notification-list"><div class="empty-state">Chưa có thông báo.</div></div></div>
+      </section>
+
+      <section class="view" id="searchView">
+        <div class="panel search-results-panel"><span class="eyebrow">KHÁM PHÁ CỘNG ĐỒNG</span><h2>Kết quả tìm kiếm</h2><p class="muted" id="searchSummary">Nhập tên hoặc username để tìm mọi người.</p><div id="searchResults" class="people-list"></div></div>
+      </section>
+
+      <footer class="mobile-footer">V-HUB SOCIAL <span>•</span> Kết nối theo cách của bạn</footer>
+    </main>
+
+    <aside class="sidebar right-sidebar">
+      <section class="side-panel profile-peek" id="profilePeek">
+        <div class="side-panel-heading"><span class="eyebrow">TÀI KHOẢN</span><button class="text-button" id="editProfileButton">Chỉnh sửa</button></div>
+        <div class="peek-cover"></div>
+        <div class="peek-content"><div class="avatar avatar-large" id="peekAvatar">G</div><strong id="peekName">Khách ghé thăm</strong><span id="peekHandle">@guest</span><p id="peekBio">Đăng nhập để tạo hồ sơ cá nhân của bạn.</p><div class="peek-stats"><div><strong id="peekPosts">—</strong><span>Bài viết</span></div><div><strong id="peekFollowers">—</strong><span>Người theo dõi</span></div><div><strong id="peekFollowing">—</strong><span>Đang theo dõi</span></div></div></div>
+      </section>
+      <section class="side-panel suggestions-panel"><div class="side-panel-heading"><div><span class="eyebrow">CÓ THỂ BẠN QUAN TÂM</span><h3>Gợi ý kết nối</h3></div><span class="sparkle">✦</span></div><div id="suggestionList" class="suggestion-list"></div></section>
+      <section class="side-note"><div class="side-note-mark">✦</div><div><strong>Một cộng đồng tích cực</strong><p>Tôn trọng, tử tế và cùng nhau phát triển.</p></div></section>
+      <div class="right-foot">Điều khoản <span>·</span> Quyền riêng tư <span>·</span> Trợ giúp</div>
+    </aside>
+  </div>
+
+  <div class="modal-backdrop hidden" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+    <div class="modal auth-modal"><button class="modal-close" data-close="authModal" aria-label="Đóng">×</button><div class="modal-brand"><span class="brand-mark">V</span><span>V-HUB</span></div><span class="eyebrow">WELCOME TO YOUR SPACE</span><h2 id="authTitle">Chào mừng trở lại!</h2><p class="modal-subtitle" id="authSubtitle">Đăng nhập để tiếp tục kết nối với cộng đồng.</p>
+      <div class="auth-switch"><button class="auth-switch-button active" data-auth-mode="login">Đăng nhập</button><button class="auth-switch-button" data-auth-mode="register">Tạo tài khoản</button></div>
+      <form id="authForm">
+        <div class="form-field hidden" id="displayNameField"><label for="authDisplayName">Tên hiển thị</label><input id="authDisplayName" type="text" maxlength="40" placeholder="Tên của bạn"></div>
+        <div class="form-field"><label for="authLogin" id="loginLabel">Tên người dùng hoặc email</label><input id="authLogin" type="text" autocomplete="username" placeholder="Nhập username hoặc email"></div>
+        <div class="form-field hidden" id="emailField"><label for="authEmail">Email</label><input id="authEmail" type="email" autocomplete="email" placeholder="you@example.com"></div>
+        <div class="form-field"><label for="authPassword">Mật khẩu</label><input id="authPassword" type="password" autocomplete="current-password" minlength="8" placeholder="Ít nhất 8 ký tự"></div>
+        <p class="form-error" id="authError"></p><button class="button button-primary full-width" id="authSubmit" type="submit">Đăng nhập <span>→</span></button>
+      </form>
+      <div class="auth-demo"><span class="demo-dot"></span><span>Tài khoản trải nghiệm: <b>demo</b> / <b>Demo1234!</b></span><button id="fillDemo">Dùng thử</button></div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="editModal" role="dialog" aria-modal="true" aria-labelledby="editTitle">
+    <div class="modal"><button class="modal-close" data-close="editModal" aria-label="Đóng">×</button><span class="eyebrow">MAKE IT YOURS</span><h2 id="editTitle">Chỉnh sửa hồ sơ</h2><p class="modal-subtitle">Một chút giới thiệu để mọi người hiểu bạn hơn.</p>
+      <form id="editForm"><div class="form-field"><label for="editDisplayName">Tên hiển thị</label><input id="editDisplayName" maxlength="40" required></div><div class="form-field"><label for="editBio">Tiểu sử</label><textarea id="editBio" maxlength="160" rows="3" placeholder="Viết đôi điều về bạn..."></textarea></div><div class="form-field"><label for="editAvatarUrl">Ảnh đại diện (URL)</label><input id="editAvatarUrl" type="url" placeholder="https://... (có thể để trống)"></div><p class="form-hint">Chỉ dùng đường dẫn ảnh bạn có quyền sử dụng. Ảnh được tải từ URL bên ngoài.</p><p class="form-error" id="editError"></p><button class="button button-primary full-width" type="submit">Lưu thay đổi</button></form>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="commentsModal" role="dialog" aria-modal="true" aria-labelledby="commentsTitle">
+    <div class="modal comments-modal"><button class="modal-close" data-close="commentsModal" aria-label="Đóng">×</button><span class="eyebrow">CUỘC TRÒ CHUYỆN</span><h2 id="commentsTitle">Bình luận</h2><div class="comments-list" id="commentsList"></div><form class="comment-form" id="commentForm"><input id="commentInput" maxlength="500" placeholder="Viết bình luận thân thiện..." required><button class="button button-primary" type="submit">Gửi</button></form></div>
+  </div>
+
+  <div class="toast-region" id="toastRegion" aria-live="polite"></div>
+</body>
+</html>
